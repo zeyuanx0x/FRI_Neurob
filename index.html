@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCI Research Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #0ea5e9;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0ea5e9;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #0284c7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f3f4f6;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Brain-Computer Interface Research Lab</h1>
+            <p class="subtitle">Advancing the frontier of neural engineering through innovative research</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="features">
+            <div class="feature-card">
+                <h3>Neural Signal Processing</h3>
+                <p>Advanced algorithms for real-time processing and analysis of neural signals, enabling more accurate and responsive brain-computer interfaces.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Machine Learning Integration</h3>
+                <p>State-of-the-art ML models for improved BCI performance and adaptability, making brain-computer interfaces more intuitive and reliable.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Hardware Development</h3>
+                <p>Custom hardware solutions for high-quality neural signal acquisition, pushing the boundaries of what's possible in neural interface technology.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 4rem 0;">
+            <a href="https://github.com/yourusername/bci-research-website" class="cta-button">
+                View Full Website
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 BCI Research Lab. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
