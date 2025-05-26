@@ -19,7 +19,11 @@
   }
 
   .section-title {
-    @apply text-3xl font-extrabold text-gray-900 sm:text-4xl mb-4;
+    @apply text-2xl font-bold text-gray-900 mb-6 flex items-center;
+  }
+
+  .section-title-bar {
+    @apply w-1 h-8 bg-blue-600 mr-3 rounded-full;
   }
 
   .section-subtitle {
@@ -27,11 +31,11 @@
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1;
+    @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-105;
   }
 
   .btn-primary {
-    @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-primary-700 hover:scale-105 hover:-translate-y-0.5 cursor-pointer;
+    @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
@@ -93,7 +97,6 @@
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -101,11 +104,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 rounded-full;
+  @apply bg-blue-600 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500;
+  @apply bg-blue-700;
 }
 
 /* Animations */
@@ -128,4 +131,60 @@
 
 .delay-200 {
   animation-delay: 200ms;
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  @apply fixed top-0 left-0 h-1 bg-blue-600 transition-all duration-300;
+  z-index: 1000;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  @apply fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-200 hover:scale-105;
+  z-index: 40;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  @apply fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out;
+}
+
+.mobile-menu.hidden {
+  transform: translateX(100%);
+}
+
+/* Card Hover Effects */
+.hover-card {
+  @apply transition-all duration-200;
+}
+
+.hover-card:hover {
+  @apply transform scale-105 shadow-lg;
+}
+
+/* Text Gradient */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800;
+}
+
+/* Section Transitions */
+.section-transition {
+  @apply transition-all duration-500;
 } 

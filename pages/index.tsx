@@ -2,6 +2,13 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { motion } from 'framer-motion';
 import ChatInterface from '../components/ChatInterface';
+import BackToTop from '../components/BackToTop';
+import ScrollProgress from '../components/ScrollProgress';
+
+interface Contributor {
+  name: string;
+  role: 'Supervisor' | 'Project Member';
+}
 
 const Home: React.FC = () => {
   const fadeInUp = {
@@ -18,7 +25,7 @@ const Home: React.FC = () => {
     }
   };
 
-  const contributors = [
+  const contributors: Contributor[] = [
     { name: 'Prof. Holger Krapp', role: 'Supervisor' },
     { name: 'Dr. Jiaqi Huang', role: 'Supervisor' },
     { name: 'Zeyuan Xin', role: 'Project Member' },
@@ -30,135 +37,235 @@ const Home: React.FC = () => {
     { name: 'Badriyah Islam', role: 'Project Member' },
   ];
 
-  const techHighlights = [
-    '使用真实昆虫神经元信号控制机器人',
-    '实时光流响应，模拟自然避障反应',
-    '双H1神经元融合，扩大感知视野',
-    '自主设计3D打印平台，系统更轻更稳',
-    '可扩展至更复杂环境下的避障系统',
+  const techHighlights: string[] = [
+    'Real-time insect neuron signals for robot control',
+    'Optical flow response simulating natural obstacle avoidance',
+    'Dual H1 neuron fusion for expanded perception',
+    'Custom 3D-printed platform for enhanced stability',
+    'Scalable to complex obstacle avoidance systems',
   ];
 
-  const objectives = [
-    '重现以H1神经元控制机器人避障的实验',
-    '提高避障准确率至90%以上',
-    '设计更稳定轻便的机器人底盘',
-    '集成双H1神经元信号，提升导航能力',
+  const objectives: string[] = [
+    'Replicate H1 neuron-based robot obstacle avoidance experiments',
+    'Achieve obstacle avoidance accuracy above 90%',
+    'Design a more stable and lightweight robot chassis',
+    'Integrate dual H1 neuron signals for improved navigation',
   ];
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans">
-      <header>
-        <TitleSection />
-      </header>
-      <main>
-        <AbstractSection />
-        <OverviewSection />
-        <MotivationSection />
-        <TechHighlightsSection />
-        <ObjectivesSection />
-        <ContributorsSection />
-      </main>
-      <footer className="text-center text-gray-500 py-8 border-t border-gray-200 mt-12 text-sm">
-        © 2025 NeuRob Project, Imperial College London. All rights reserved.
+    <div className="min-h-screen bg-gray-50">
+      <ScrollProgress />
+      <Navbar />
+      
+      {/* Hero Section */}
+      <motion.section 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="pt-32 pb-16 bg-gradient-to-b from-white to-gray-50"
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h1 
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+            className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight mb-4"
+          >
+            Fly Robot Interface (Neural)
+          </motion.h1>
+          <motion.p 
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+            className="text-xl md:text-2xl text-blue-600 font-medium mb-8"
+          >
+            NeuRob · Department of Bioengineering, Imperial College London
+          </motion.p>
+          <motion.div
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+          >
+            <a
+              href="https://github.com/zeyuanx0x/FRI_Neurob/blob/master/Neurob_Final_Report_02225375.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              View Our Final Report
+              <svg className="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Abstract Section */}
+      <motion.section 
+        id="abstract"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="py-16 bg-white"
+      >
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            variants={fadeInUp}
+            className="section-title"
+          >
+            <span className="section-title-bar"></span>
+            Abstract
+          </motion.h2>
+          <motion.p 
+            variants={fadeInUp}
+            className="text-gray-700 leading-relaxed text-lg"
+          >
+            We have developed a bio-inspired brain-computer interface system that utilizes visual neurons from blowflies (Calliphora vicina) to control wheeled robots for real-time obstacle avoidance. The system leverages the H1 neuron's sensitivity to optical flow, converting neural signals into robot motion commands to simulate insect flight navigation capabilities.
+          </motion.p>
+        </div>
+      </motion.section>
+
+      {/* Project Overview Section */}
+      <motion.section 
+        id="overview"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="py-16 bg-gray-50"
+      >
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            variants={fadeInUp}
+            className="section-title"
+          >
+            <span className="section-title-bar"></span>
+            Project Overview
+          </motion.h2>
+          <motion.p 
+            variants={fadeInUp}
+            className="text-gray-700 leading-relaxed text-lg"
+          >
+            This project explores the application of insect visual mechanisms, particularly the motion encoding capabilities of H1 neurons, in robot control. By recording live neuron signals and converting them into control commands in real-time, we have constructed a brain-computer interface platform achieving over 90% obstacle avoidance accuracy.
+          </motion.p>
+        </div>
+      </motion.section>
+
+      {/* Technical Highlights Section */}
+      <motion.section 
+        id="highlights"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="py-16 bg-white"
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            variants={fadeInUp}
+            className="section-title"
+          >
+            <span className="section-title-bar"></span>
+            Technical Highlights
+          </motion.h2>
+          <motion.div 
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {techHighlights.map((highlight, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="card"
+              >
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="ml-3 text-gray-700 font-medium">{highlight}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Team Section */}
+      <motion.section 
+        id="team"
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="py-16 bg-gray-50"
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            variants={fadeInUp}
+            className="section-title"
+          >
+            <span className="section-title-bar"></span>
+            Team Members
+          </motion.h2>
+          
+          {/* Supervisors */}
+          <motion.div variants={fadeInUp} className="mb-12">
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">Supervisors</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {contributors.filter(c => c.role === 'Supervisor').map((supervisor, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  className="card border-2 border-blue-600"
+                >
+                  <h4 className="text-lg font-bold text-gray-900">{supervisor.name}</h4>
+                  <p className="text-gray-600">{supervisor.role}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Project Members */}
+          <motion.div variants={fadeInUp}>
+            <h3 className="text-xl font-semibold text-gray-800 mb-6">Project Members</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {contributors.filter(c => c.role === 'Project Member').map((member, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  className="card"
+                >
+                  <p className="text-gray-900 font-medium">{member.name}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-gray-500 text-sm">
+            © 2025 NeuRob Project, Imperial College London. All rights reserved.
+          </p>
+        </div>
       </footer>
+
       {/* AI Chat Box 悬浮按钮和弹窗 */}
       <div className="fixed bottom-6 right-6 z-50">
         <div className="w-80 h-[500px] shadow-2xl rounded-xl overflow-hidden bg-white border border-gray-200">
           <ChatInterface />
         </div>
       </div>
+
+      <BackToTop />
     </div>
   );
 };
-
-function TitleSection() {
-  return (
-    <section className="w-full bg-white border-b border-gray-200 py-10 px-4 text-center">
-      <h1 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 font-serif">Fly Robot Interface (Neural) Krapp Lab</h1>
-      <div className="text-lg md:text-2xl text-blue-700 font-medium">NeuRob · Department of Bioengineering, Imperial College London</div>
-    </section>
-  );
-}
-
-function AbstractSection() {
-  return (
-    <section className="max-w-3xl mx-auto py-8 px-4">
-      <h2 className="text-xl font-semibold text-gray-800 mb-3 border-l-4 border-blue-600 pl-3 font-serif">Abstract</h2>
-      <p className="text-gray-700 leading-relaxed text-base md:text-lg">
-        我们开发了一种受生物启发的脑-机接口系统，使用吹蝇（Calliphora vicina）的视觉神经元控制轮式机器人，实现实时避障。该系统基于H1神经元对光流的敏感性，将神经信号转化为机器人运动指令，从而模拟昆虫的飞行导航能力。
-      </p>
-    </section>
-  );
-}
-
-function OverviewSection() {
-  return (
-    <section className="max-w-3xl mx-auto py-8 px-4">
-      <h2 className="text-xl font-semibold text-gray-800 mb-3 border-l-4 border-blue-600 pl-3 font-serif">项目简介</h2>
-      <p className="text-gray-700 leading-relaxed text-base md:text-lg">
-        本项目探索如何将昆虫的视觉机制，尤其是H1神经元的运动编码能力，应用于机器人控制中。通过记录活体神经元信号并实时转换为控制命令，我们构建了一个避障精度达90%以上的脑-机接口平台。
-      </p>
-    </section>
-  );
-}
-
-function MotivationSection() {
-  return (
-    <section className="max-w-3xl mx-auto py-8 px-4">
-      <h2 className="text-xl font-semibold text-gray-800 mb-3 border-l-4 border-blue-600 pl-3 font-serif">研究动机</h2>
-      <p className="text-gray-700 leading-relaxed text-base md:text-lg">
-        相比传统相机或雷达系统，昆虫视觉系统更节能且更适应复杂环境。H1神经元能高效提取与碰撞相关的运动信息，是构建低功耗导航系统的理想蓝本。
-      </p>
-    </section>
-  );
-}
-
-function TechHighlightsSection() {
-  return (
-    <section className="max-w-5xl mx-auto py-8 px-4">
-      <h2 className="text-xl font-semibold text-gray-800 mb-6 border-l-4 border-blue-600 pl-3 font-serif">技术亮点</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {techHighlights.map((item, idx) => (
-          <div key={idx} className="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex items-center text-gray-800 hover:shadow-lg transition-all duration-200">
-            <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" /><path d="M8 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            <span className="text-base font-medium">{item}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function ObjectivesSection() {
-  return (
-    <section className="max-w-3xl mx-auto py-8 px-4">
-      <h2 className="text-xl font-semibold text-gray-800 mb-3 border-l-4 border-blue-600 pl-3 font-serif">项目目标</h2>
-      <ul className="space-y-3">
-        {objectives.map((obj, idx) => (
-          <li key={idx} className="flex items-center text-gray-800 text-base md:text-lg">
-            <svg className="w-6 h-6 text-green-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            <span className="font-medium">{obj}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
-
-function ContributorsSection() {
-  return (
-    <section className="max-w-5xl mx-auto py-8 px-4">
-      <h2 className="text-xl font-semibold text-gray-800 mb-6 border-l-4 border-blue-600 pl-3 font-serif">团队成员</h2>
-      <div className="flex flex-wrap gap-4">
-        {contributors.map((c, idx) => (
-          <div key={c.name} className={`bg-white border border-gray-200 rounded-lg shadow p-4 min-w-[160px] text-center ${c.role === 'Supervisor' ? 'border-blue-600' : ''}`}>
-            <div className="text-lg font-bold text-gray-900 mb-1">{c.name}</div>
-            <div className="text-sm text-blue-700 font-medium">{c.role}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 export default Home; 
