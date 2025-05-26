@@ -5,6 +5,7 @@
 @layer base {
   html {
     @apply antialiased;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -13,10 +14,79 @@
 }
 
 @layer components {
+  .nav-link {
+    @apply text-gray-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer;
+  }
+
+  .section-title {
+    @apply text-3xl font-extrabold text-gray-900 sm:text-4xl mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-xl text-gray-500 max-w-2xl mx-auto;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-primary-700 hover:scale-105 hover:-translate-y-0.5 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary-600 border border-primary-600 px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-primary-50 hover:scale-105 hover:-translate-y-0.5 cursor-pointer;
+  }
+
   .bg-grid-pattern {
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-in-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
