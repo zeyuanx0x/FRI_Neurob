@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <img src="/ICON.png" alt="Neurob Logo" className="h-10 w-auto mr-3" />
+                <img src="/ICON.svg" alt="FRI Logo" className="h-10 w-auto mr-2" />
               </motion.a>
             </div>
           </div>
