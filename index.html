@@ -24,10 +24,44 @@
             padding: 2rem;
         }
 
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0ea5e9;
+        }
+
+        /* Hero Section */
         header {
             background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             color: white;
-            padding: 4rem 0;
+            padding: 8rem 0 4rem;
             text-align: center;
         }
 
@@ -41,6 +75,7 @@
             opacity: 0.9;
         }
 
+        /* Features Section */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -65,6 +100,89 @@
             margin-bottom: 1rem;
         }
 
+        /* Research Section */
+        .research-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .research-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 4rem 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Buttons */
         .cta-button {
             display: inline-block;
             background: #0ea5e9;
@@ -74,12 +192,15 @@
             text-decoration: none;
             font-weight: 600;
             transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
             background: #0284c7;
         }
 
+        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
@@ -87,6 +208,7 @@
             margin-top: 4rem;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -95,38 +217,162 @@
             .container {
                 padding: 1rem;
             }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <header>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">BCI Lab</a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#research">Research</a>
+                <a href="#team">Team</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home">
         <div class="container">
             <h1>Brain-Computer Interface Research Lab</h1>
             <p class="subtitle">Advancing the frontier of neural engineering through innovative research</p>
         </div>
     </header>
 
-    <main class="container">
-        <div class="features">
-            <div class="feature-card">
-                <h3>Neural Signal Processing</h3>
-                <p>Advanced algorithms for real-time processing and analysis of neural signals, enabling more accurate and responsive brain-computer interfaces.</p>
+    <main>
+        <!-- Features Section -->
+        <section class="container">
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Neural Signal Processing</h3>
+                    <p>Advanced algorithms for real-time processing and analysis of neural signals, enabling more accurate and responsive brain-computer interfaces.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Machine Learning Integration</h3>
+                    <p>State-of-the-art ML models for improved BCI performance and adaptability, making brain-computer interfaces more intuitive and reliable.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Hardware Development</h3>
+                    <p>Custom hardware solutions for high-quality neural signal acquisition, pushing the boundaries of what's possible in neural interface technology.</p>
+                </div>
             </div>
-            <div class="feature-card">
-                <h3>Machine Learning Integration</h3>
-                <p>State-of-the-art ML models for improved BCI performance and adaptability, making brain-computer interfaces more intuitive and reliable.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Hardware Development</h3>
-                <p>Custom hardware solutions for high-quality neural signal acquisition, pushing the boundaries of what's possible in neural interface technology.</p>
-            </div>
-        </div>
+        </section>
 
-        <div style="text-align: center; margin: 4rem 0;">
-            <a href="https://github.com/yourusername/bci-research-website" class="cta-button">
-                View Full Website
-            </a>
-        </div>
+        <!-- Research Section -->
+        <section id="research" class="research-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Research Publications</h2>
+                    <p>Explore our latest research in brain-computer interfaces and neural engineering</p>
+                </div>
+                <div class="research-grid">
+                    <div class="research-card">
+                        <h3>Real-time EEG Signal Processing</h3>
+                        <p>A novel approach to real-time EEG signal processing using deep learning techniques.</p>
+                        <div class="tags">
+                            <span>EEG</span>
+                            <span>Deep Learning</span>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <h3>Neural Interface Prototype</h3>
+                        <p>Next-generation neural interface prototype with improved signal quality and reduced latency.</p>
+                        <div class="tags">
+                            <span>Hardware</span>
+                            <span>Signal Quality</span>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <h3>Neural Signal Enhancement</h3>
+                        <p>Patent-pending method for enhancing neural signal quality in noisy environments.</p>
+                        <div class="tags">
+                            <span>Signal Enhancement</span>
+                            <span>Noise Reduction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Team</h2>
+                    <p>Meet the researchers and scientists behind our innovative work</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="https://via.placeholder.com/150" alt="Dr. Jane Smith">
+                        <h3>Dr. Jane Smith</h3>
+                        <p>Principal Investigator</p>
+                        <p>Leading research in neural signal processing and BCI applications.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://via.placeholder.com/150" alt="Dr. John Doe">
+                        <h3>Dr. John Doe</h3>
+                        <p>Research Scientist</p>
+                        <p>Specializing in hardware development and signal acquisition systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with our research team</p>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -134,5 +380,25 @@
             <p>© 2024 BCI Research Lab. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
 </body>
 </html> 
