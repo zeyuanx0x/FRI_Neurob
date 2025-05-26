@@ -142,11 +142,11 @@ const Navbar: React.FC = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(item.href);
+                    setIsMobileMenuOpen(false);
                   }}
                   className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </motion.a>
@@ -156,7 +156,11 @@ const Navbar: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block px-3 py-2 text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('https://github.com/zeyuanx0x/FRI_Neurob/blob/master/Neurob_Final_Report_02225375.pdf');
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 View Report
               </a>
