@@ -1,4 +1,4 @@
-# BCI Research Website
+# FRI Research Website
 
 A modern, responsive website for showcasing Brain-Computer Interface (BCI) research, built with Next.js and TailwindCSS.
 
