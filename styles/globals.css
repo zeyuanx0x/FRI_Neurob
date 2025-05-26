@@ -9,13 +9,13 @@
   }
 
   body {
-    @apply text-gray-900 bg-gray-50;
+    @apply text-gray-900 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50;
   }
 }
 
 @layer components {
   .nav-link {
-    @apply text-gray-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer;
+    @apply text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer;
   }
 
   .section-title {
@@ -23,7 +23,7 @@
   }
 
   .section-title-bar {
-    @apply w-1 h-8 bg-blue-600 mr-3 rounded-full;
+    @apply w-1 h-8 bg-gradient-to-b from-blue-500 to-indigo-600 mr-3 rounded-full;
   }
 
   .section-subtitle {
@@ -31,20 +31,32 @@
   }
 
   .card {
-    @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-105;
+    @apply bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-105;
+  }
+
+  .card-research {
+    @apply bg-gradient-to-br from-indigo-50 to-purple-50;
+  }
+
+  .card-team {
+    @apply bg-gradient-to-br from-blue-50 to-cyan-50;
+  }
+
+  .card-demo {
+    @apply bg-gradient-to-br from-teal-50 to-emerald-50;
   }
 
   .btn-primary {
-    @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply bg-white text-primary-600 border border-primary-600 px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-primary-50 hover:scale-105 hover:-translate-y-0.5 cursor-pointer;
+    @apply bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-blue-50 hover:scale-105 hover:-translate-y-0.5 cursor-pointer;
   }
 
   .bg-grid-pattern {
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-image: linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 }
@@ -61,6 +73,10 @@
   .animate-slide-in-right {
     animation: slideInRight 0.5s ease-in-out;
   }
+
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600;
+  }
 }
 
 @keyframes fadeIn {
@@ -74,23 +90,23 @@
 
 @keyframes slideUp {
   from {
-    opacity: 0;
     transform: translateY(20px);
+    opacity: 0;
   }
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
 @keyframes slideInRight {
   from {
-    opacity: 0;
     transform: translateX(20px);
+    opacity: 0;
   }
   to {
-    opacity: 1;
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -177,11 +193,6 @@
 
 .hover-card:hover {
   @apply transform scale-105 shadow-lg;
-}
-
-/* Text Gradient */
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800;
 }
 
 /* Section Transitions */

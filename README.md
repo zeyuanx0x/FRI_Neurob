@@ -1,6 +1,54 @@
-# FRI Research Website
+# <h1 align="center">
+  🚀 Fly Robot Interface (Neural) — NeuRob
+</h1>
+<p align="center">
+  <em>Bioinspired Neural Control for Real-Time Robotic Collision Avoidance</em><br>
+  <strong>Department of Bioengineering</strong> · Imperial College London  
+</p>
 
-A modern, responsive website for showcasing Brain-Computer Interface (BCI) research, built with Next.js and TailwindCSS.
+<p align="center">
+  <img src="public/favicon.svg" alt="Neurob Logo" width="100" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/zeyuanx0x/FRI_Neurob/blob/master/Neurob_Final_Report_02225375.pdf" target="_blank" rel="noopener noreferrer">
+    📄 View Our Full Report
+  </a>
+</p>
+
+---
+
+## 🧠 Abstract
+
+> The **Fly Robot Interface (FRI)** explores a novel biohybrid approach to robotic control, using the **extracellular neural signals** from the *Calliphora vicina* blowfly.  
+By decoding **motion-sensitive H1 neurons**, the system enables real-time, low-power, collision-avoidance behavior in a mobile robot.  
+This project builds on foundational research by Prof. Holger Krapp and Dr. Jiaqi Huang, while introducing a dual H1-cell integration method to expand the system's visual field and motion disambiguation ability.
+
+---
+
+## 🔬 Project Highlights
+
+- 🎯 **Real-time** robot control using **live H1 neuron** recordings  
+- 🔁 **Dual H1-cell** integration mimicking binocular vision  
+- ⚙️ Designed a custom **3D-printed robot platform**  
+- 🌐 Repeated & extended prior **biohybrid BCI experiments**  
+- 🧩 Low-power, optic-flow based **collision avoidance** system  
+
+---
+
+## 📸 System Overview
+
+```mermaid
+flowchart LR
+  Fly["🪰 Blowfly (Calliphora vicina)"]
+  Amplifier["⚡ Neural Signal Amplifier"]
+  Interface["🧠 Neural Interface"]
+  Robot["🤖 Mobile Robot"]
+  Arena["⬛ Experimental Arena"]
+
+  Fly --> Amplifier --> Interface --> Robot --> Arena
+  Arena -->|Obstacle Detection| Interface
+```
 
 ## Features
 
