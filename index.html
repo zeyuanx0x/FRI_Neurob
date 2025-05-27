@@ -14,6 +14,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;700&family=Georgia:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <!-- Framer Motion -->
   <script src="https://unpkg.com/framer-motion@11.0.3/dist/framer-motion.js"></script>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     body {
       font-family: 'Inter', 'Roboto', 'Georgia', serif;
@@ -177,7 +181,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      width: 100%;
+      width: 200px;
       background: rgba(10, 10, 10, 0.9);
       backdrop-filter: blur(10px);
       border-radius: 0.5rem;
@@ -188,6 +192,7 @@
       visibility: hidden;
       transform: translateY(-10px);
       transition: all 0.2s ease;
+      z-index: 100;
     }
 
     .navbar-menu-item:hover .navbar-dropdown {
@@ -196,48 +201,55 @@
       transform: translateY(0);
     }
 
-    .navbar-dropdown-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .navbar-dropdown-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      transition: all 0.2s ease;
-      color: #f8fafc;
-    }
-
-    .navbar-dropdown-item:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .navbar-dropdown-item img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-    }
-
-    @keyframes move {
-      0% {
-        transform: translate(0, 0);
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        max-width: 100%;
+        padding: 0 1rem;
       }
-      25% {
-        transform: translate(100%, 0);
+
+      .navbar-menu {
+        padding: 0.25rem;
       }
-      50% {
-        transform: translate(100%, 100%);
+
+      .navbar-menu-item {
+        padding: 0.25rem 0.5rem;
       }
-      75% {
-        transform: translate(0, 100%);
+
+      .navbar-dropdown {
+        position: fixed;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        width: 90%;
+        max-width: 300px;
       }
-      100% {
-        transform: translate(0, 0);
+
+      .navbar-menu-item:hover .navbar-dropdown {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* Adjust card animations for mobile */
+      .card::before {
+        display: none;
+      }
+
+      .card:hover .content::before {
+        display: none;
+      }
+
+      .card {
+        transform: none !important;
+        box-shadow: 0px 0px 3px 1px #00000088;
+      }
+
+      .card:hover {
+        transform: none !important;
+      }
+
+      /* Adjust beams animation for mobile */
+      .beams-container {
+        display: none;
       }
     }
 
@@ -245,7 +257,7 @@
       position: relative;
       padding: 12px 48px;
       color: #fff;
-      background: linear-gradient(to right, #60a5fa 0, #93c5fd 10%, #3b82f6 20%);
+      background: linear-gradient(to right, #94a3b8 0, #cbd5e1 10%, #e2e8f0 20%);
       background-position: 0;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -263,6 +275,30 @@
       background-color: rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
       overflow: hidden;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position: 0;
+      }
+      60% {
+        background-position: 180px;
+      }
+      100% {
+        background-position: 180px;
+      }
+    }
+
+    .btn-shine:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 40px rgba(226, 232, 240, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* 移除彩色文本动画 */
+    .colourful-text {
+      color: #ffffff;
+      font-weight: 700;
     }
 
     .btn-shine::before {
@@ -398,7 +434,7 @@
     }
 
     p {
-      color: #9ca3af;
+      color: #94a3b8;
     }
 
     footer {
@@ -414,135 +450,206 @@
 
     /* Text Colors */
     .text-slate-900 { color: #ffffff !important; }
-    .text-slate-700 { color: #f8fafc !important; }
+    .text-slate-700 { color: #94a3b8 !important; }
     .text-slate-500 { color: #f1f5f9 !important; }
     .text-blue-600 { color: #60a5fa !important; }
     .text-blue-400 { color: #93c5fd !important; }
 
+    /* Section Headers */
+    section h2 {
+      text-align: center;
+    }
+
+    section h3 {
+      text-align: center;
+    }
+
     /* AI ChatBox Styles */
     #ai-chatbox-panel {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 300px;
+      height: 320px;
+      background-color: #343541;
+      border-radius: 8px;
       display: flex;
       flex-direction: column;
+      position: fixed;
+      bottom: 100px;
+      right: 24px;
+      transform: scale(0);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      z-index: 1000;
+    }
+
+    #ai-chatbox-panel.active {
+      transform: scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #ai-chatbox-overlay {
+      display: none;
+    }
+
+    #ai-chatbox-header {
+      width: 100%;
+      height: 40px;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    #ai-chatbox-header span {
+      color: #6B6C7B;
+      white-space: nowrap;
+      margin-left: 10px;
+      user-select: none;
+    }
+
+    #ai-chatbox-close {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    #ai-chatbox-close .line {
+      position: absolute;
+      width: 20px;
+      height: 3px;
+      background-color: #6B6C7B;
+      border-radius: 30px;
+    }
+
+    #ai-chatbox-close .line.one {
+      transform: rotate(45deg);
+    }
+
+    #ai-chatbox-close .line.two {
+      transform: rotate(135deg);
     }
 
     #ai-chatbox-messages {
-      flex: 1;
+      width: 100%;
+      height: 210px;
       overflow-y: auto;
-      padding: 1rem;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 5px;
     }
 
     .message {
-      max-width: 80%;
-      padding: 0.75rem 1rem;
-      border-radius: 1rem;
-      animation: messageSlide 0.3s ease-out;
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 4px;
+      color: white;
+      font-size: 14px;
     }
 
     .message.user {
-      align-self: flex-end;
-      background: linear-gradient(to right, #60a5fa, #3b82f6);
-      color: white;
-      border-bottom-right-radius: 0.25rem;
+      background-color: #2E2F3A;
     }
 
     .message.ai {
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.1);
-      color: #e5e7eb;
-      border-bottom-left-radius: 0.25rem;
+      background-color: #343541;
     }
 
     .message.typing {
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.1);
-      color: #e5e7eb;
-      border-bottom-left-radius: 0.25rem;
+      background-color: #343541;
       display: flex;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
+      gap: 5px;
+      padding: 0 15px;
     }
 
     .typing-dot {
-      width: 0.5rem;
-      height: 0.5rem;
-      background: #e5e7eb;
+      width: 6px;
+      height: 6px;
+      background-color: #6B6C7B;
       border-radius: 50%;
       animation: typingDot 1.4s infinite;
     }
 
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    #ai-chatbox-form {
+      width: 100%;
+      height: 70px;
+      background-color: #343541;
+      display: flex;
+      border-radius: 8px;
+      padding: 15px 10px;
+    }
+
+    .input-place {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #40414F;
+      border-radius: 7px;
+      height: 40px;
+      width: 280px;
+      gap: 5px;
+      border: 1px solid #2E2F3A;
+      padding: 0 10px;
+    }
+
+    #ai-chatbox-input {
+      outline: none;
+      border: none;
+      background: none;
+      height: 40px;
+      width: 230px;
+      border-radius: 7px;
+      color: white;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin-left: 5px;
+      font-size: 14px;
+    }
+
+    #ai-chatbox-input::placeholder {
+      color: #828E9E;
+    }
+
+    #ai-chatbox-send {
+      width: 30px;
+      height: 30px;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    #ai-chatbox-send svg {
+      width: 17px;
+      height: 17px;
+      fill: #6B6C7B;
+    }
+
+    #ai-chatbox-send:hover svg {
+      fill: #ffffff;
+    }
 
     @keyframes typingDot {
       0%, 60%, 100% { transform: translateY(0); }
       30% { transform: translateY(-4px); }
-    }
-
-    @keyframes messageSlide {
-      from { 
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    #ai-chatbox-form {
-      padding: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    #ai-chatbox-input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 0.5rem;
-      padding: 0.75rem 1rem;
-      color: #e5e7eb;
-      font-size: 0.875rem;
-      transition: all 0.2s ease;
-    }
-
-    #ai-chatbox-input:focus {
-      outline: none;
-      border-color: rgba(96, 165, 250, 0.5);
-      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
-    }
-
-    #ai-chatbox-input::placeholder {
-      color: #9ca3af;
-    }
-
-    #ai-chatbox-send {
-      background: linear-gradient(to right, #60a5fa, #3b82f6);
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    #ai-chatbox-send:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
-    }
-
-    #ai-chatbox-send:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
     }
 
     /* Back to Top Button */
@@ -590,15 +697,15 @@
     }
 
     .team-member-card .card-body {
-      padding: 0.5rem; /* 减少内边距 */
+      padding: 0.5rem;
       display: flex;
       flex-direction: column;
-      min-height: 60px; /* 减少最小高度 */
+      min-height: 60px;
     }
 
     .team-member-card .card-title {
       color: #ffffff;
-      font-size: 0.8rem; /* 减小字体大小 */
+      font-size: 0.8rem;
       font-weight: 600;
       margin-bottom: 0.25rem;
     }
@@ -607,20 +714,20 @@
       margin-top: auto;
       display: flex;
       justify-content: center;
-      padding-top: 0.25rem; /* 减少上边距 */
+      padding-top: 0.25rem;
       width: 100%;
     }
 
     .team-member-card .btn {
       background: linear-gradient(to right, #60a5fa, #3b82f6);
       color: white;
-      padding: 0.25rem 0.5rem; /* 减少按钮内边距 */
+      padding: 0.25rem 0.5rem;
       border-radius: 0.5rem;
       font-weight: 500;
       transition: all 0.3s ease;
-      width: 80px; /* 减小按钮宽度 */
+      width: 80px;
       text-align: center;
-      font-size: 0.7rem; /* 减小按钮字体大小 */
+      font-size: 0.7rem;
       display: inline-block;
       border: none;
       cursor: pointer;
@@ -668,7 +775,7 @@
 
     .supervisor-card figure {
       width: 100%;
-      height: 200px; /* 增加图片高度 */
+      height: 200px;
       background: rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
@@ -687,7 +794,7 @@
       padding: 1rem;
       display: flex;
       flex-direction: column;
-      min-height: 120px; /* 确保有足够的高度 */
+      min-height: 120px;
     }
 
     .supervisor-card .card-title {
@@ -709,7 +816,7 @@
       display: flex;
       justify-content: center;
       padding-top: 0.5rem;
-      width: 100%; /* 确保按钮容器占满宽度 */
+      width: 100%;
     }
 
     .supervisor-card .btn {
@@ -722,9 +829,9 @@
       width: 100px;
       text-align: center;
       font-size: 0.8rem;
-      display: inline-block; /* 确保按钮可见 */
-      border: none; /* 移除边框 */
-      cursor: pointer; /* 添加手型光标 */
+      display: inline-block;
+      border: none;
+      cursor: pointer;
     }
 
     .supervisor-card .btn:hover {
@@ -733,44 +840,401 @@
     }
 
     /* Technical Highlights Cards */
-    .highlight-card {
-      width: 160px;
-      height: 200px;
-      border-radius: 30px;
-      background: #212121;
-      box-shadow: 15px 15px 30px rgb(25, 25, 25),
-                 -15px -15px 30px rgb(60, 60, 60);
+    .card {
+      width: 190px;
+      height: 254px;
+      background: #171717;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0px 0px 3px 1px #00000088;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .card .content {
+      border-radius: 5px;
+      background: #171717;
+      width: 186px;
+      height: 250px;
+      z-index: 1;
+      padding: 20px;
+      color: white;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 1.2rem;
+      align-items: center;
       text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .highlight-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .highlight-card .number {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, #e81cff, #40c9ff);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      margin-bottom: 0.75rem;
       font-size: 0.9rem;
+      line-height: 1.4;
+      gap: 15px;
     }
 
-    .highlight-card .text {
-      color: #e5e7eb;
-      font-size: 0.8rem;
-      line-height: 1.3;
+    .card .icon {
+      font-size: 2.5rem;
+      color: #40c9ff;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover .icon {
+      transform: scale(1.1);
+      color: #e81cff;
+    }
+
+    .content::before {
+      opacity: 0;
+      transition: opacity 300ms;
+      content: " ";
+      display: block;
+      background: white;
+      width: 5px;
+      height: 50px;
+      position: absolute;
+      filter: blur(50px);
+      overflow: hidden;
+    }
+
+    .card:hover .content::before {
+      opacity: 1;
+    }
+
+    .card::before {
+      opacity: 0;
+      content: " ";
+      position: absolute;
+      display: block;
+      width: 80px;
+      height: 360px;
+      background: linear-gradient(#ff2288, #387ef0);
+      transition: opacity 300ms;
+      animation: rotation_9018 8000ms infinite linear;
+      animation-play-state: paused;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      animation-play-state: running;
+    }
+
+    .card::after {
+      position: absolute;
+      content: " ";
+      display: block;
+      width: 250px;
+      height: 360px;
+      background: #17171733;
+      backdrop-filter: blur(50px);
+    }
+
+    @keyframes rotation_9018 {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Contact Form Styles */
+    .form-container {
+      width: 400px;
+      background: linear-gradient(#212121, #212121) padding-box,
+                  linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+      border: 2px solid transparent;
+      padding: 32px 24px;
+      font-size: 14px;
+      font-family: inherit;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-sizing: border-box;
+      border-radius: 16px;
+    }
+
+    .form-container button:active {
+      scale: 0.95;
+    }
+
+    .form-container .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-container .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .form-container .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #717171;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .form-container .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      background-color: transparent;
+      border: 1px solid #414141;
+    }
+
+    .form-container .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      resize: none;
+      color: #fff;
+      height: 96px;
+      border: 1px solid #414141;
+      background-color: transparent;
+      font-family: inherit;
+    }
+
+    .form-container .form-group input::placeholder {
+      opacity: 0.5;
+    }
+
+    .form-container .form-group input:focus {
+      outline: none;
+      border-color: #e81cff;
+    }
+
+    .form-container .form-group textarea:focus {
+      outline: none;
+      border-color: #e81cff;
+    }
+
+    .form-container .form-submit-btn {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      align-self: flex-start;
+      font-family: inherit;
+      color: #717171;
+      font-weight: 600;
+      width: 40%;
+      background: #313131;
+      border: 1px solid #414141;
+      padding: 12px 16px;
+      font-size: inherit;
+      gap: 8px;
+      margin-top: 8px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .form-container .form-submit-btn:hover {
+      background-color: #fff;
+      border-color: #fff;
+    }
+
+    /* 文字生成效果样式 */
+    .text-generate-effect {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .text-generate-effect .word {
+      display: inline-block;
+      opacity: 0;
+      filter: blur(10px);
+      animation: wordAppear 0.8s ease forwards;
+      margin-right: 0.5rem;
+    }
+
+    .text-generate-effect .word.highlight {
+      background: linear-gradient(120deg, #4ade80, #22c55e, #16a34a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.3em;
+      font-weight: 700;
+      text-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+    }
+
+    @keyframes wordAppear {
+      0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    .motivation-block {
+      display: none;
+    }
+
+    /* Image Comparison Styles */
+    .compare-container {
+      position: relative;
+    }
+
+    .compare-slider {
+      transform: translateX(-50%);
+      transition: left 0.1s ease;
+    }
+
+    .compare-container:hover .compare-slider {
+      left: var(--slider-position, 50%);
+    }
+
+    .compare-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .compare-container:hover::before {
+      opacity: 1;
+    }
+
+    .compare-images img {
+      transition: clip-path 0.1s ease;
+    }
+
+    /* 标题渐变效果 */
+    .gradient-title {
+      background: linear-gradient(120deg, #00f2fe, #4facfe, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: gradient-shift 3s ease infinite;
+      text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+      filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.2));
+    }
+
+    @keyframes gradient-shift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* 更新所有标题的类 */
+    h1, h2, h3 {
+      font-family: 'Georgia', 'Inter', serif;
+      color: #ffffff;
+    }
+
+    .gradient-title {
+      font-weight: 700;
+    }
+
+    /* 小标题样式 */
+    .subtitle {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* 彩色文本动画效果 */
+    .colourful-text {
+      background: linear-gradient(to right, #00f2fe, #4facfe, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: gradient-shift 3s ease infinite;
+      text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+      filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.2));
+      font-weight: 700;
+    }
+
+    /* 白银色按钮效果 */
+    .btn-shine {
+      background: linear-gradient(to right, #94a3b8 0, #cbd5e1 10%, #e2e8f0 20%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: shine 3s infinite linear;
+      animation-fill-mode: forwards;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-shadow: 0 0 20px rgba(226, 232, 240, 0.3);
+    }
+
+    .btn-shine:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 40px rgba(226, 232, 240, 0.6);
+    }
+
+    /* 主题文本颜色 */
+    .theme-text {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    /* 蓝色文本 */
+    .blue-text {
+      color: #3b82f6;
+      font-weight: 600;
+    }
+
+    /* 加载动画样式 */
+    .loader {
+      width: 44.8px;
+      height: 44.8px;
+      color: #00f2fe;
+      position: relative;
+      background: radial-gradient(11.2px,currentColor 94%,#0000);
+      margin: 0 auto 1rem;
+    }
+
+    .loader:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(10.08px at bottom right,#0000 94%,currentColor) top    left,
+              radial-gradient(10.08px at bottom left ,#0000 94%,currentColor) top    right,
+              radial-gradient(10.08px at top    right,#0000 94%,currentColor) bottom left,
+              radial-gradient(10.08px at top    left ,#0000 94%,currentColor) bottom right;
+      background-size: 22.4px 22.4px;
+      background-repeat: no-repeat;
+      animation: loader 1.5s infinite cubic-bezier(0.3,1,0,1);
+    }
+
+    @keyframes loader {
+      33% {
+        inset: -11.2px;
+        transform: rotate(0deg);
+      }
+
+      66% {
+        inset: -11.2px;
+        transform: rotate(90deg);
+      }
+
+      100% {
+        inset: 0;
+        transform: rotate(90deg);
+      }
     }
   </style>
 </head>
@@ -823,7 +1287,7 @@
         <div class="flex items-center justify-between px-4">
           <a href="#home" class="flex items-center space-x-2 group">
             <img src="favicon.svg" alt="FRI Logo" class="h-9 w-9 icon-float" width="36" height="36" />
-            <span class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors duration-200">Fly Robot Interface (Neural)</span>
+            <span class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors duration-200">FRIn</span>
           </a>
           <div class="flex items-center space-x-4">
             <div class="navbar-menu-item">
@@ -850,21 +1314,37 @@
     <main class="pt-20 max-w-4xl mx-auto px-4">
       <!-- Hero Section -->
       <section id="home" class="text-center py-16">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Fly Robot Interface (Neural). NeuRob</h1>
-        <p class="text-xl text-blue-400 mb-8">Krapp Lab · Department of Bioengineering, Imperial College London</p>
-        <div class="flex justify-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Fly Robot Interface <span class="gradient-title">(Neural)</span>. <span class="text-white">NeuRob</span></h1>
+        <p class="text-xl mb-8 text-slate-700">
+          Krapp Lab · Department of Bioengineering, Imperial College London
+        </p>
+        <div class="flex flex-col items-center gap-8">
           <a href="https://github.com/zeyuanx0x/FRI_Neurob/blob/master/Neurob_Final_Report_02225375.pdf"
              target="_blank"
              rel="noopener noreferrer"
              class="btn-shine">
             View Our Report
           </a>
+          <div class="mt-8">
+            <div class="loader"></div>
+            <h2 class="text-3xl font-bold mb-6 gradient-title">Motivation</h2>
+            <div class="text-generate-effect text-xl">
+              <span class="word" style="animation-delay: 0.2s">Biology</span>
+              <span class="word" style="animation-delay: 0.4s">is</span>
+              <span class="word" style="animation-delay: 0.6s">significantly</span>
+              <span class="word" style="animation-delay: 0.8s">more</span>
+              <span class="word highlight" style="animation-delay: 1.0s">energy-efficient</span>
+              <span class="word" style="animation-delay: 1.2s">than</span>
+              <span class="word" style="animation-delay: 1.4s">traditional</span>
+              <span class="word" style="animation-delay: 1.6s">computing</span>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Abstract Section -->
-      <section id="abstract" class="py-12 border-b border-slate-100">
-        <h2 class="text-2xl font-bold mb-4 text-slate-900">Abstract</h2>
+      <section id="abstract" class="py-8 border-b border-slate-100">
+        <h2 class="text-2xl font-bold mb-4 gradient-title">For Our Project</h2>
         <p class="text-lg text-slate-700 leading-relaxed">
           We have leveraged a bio-inspired brain-machine interface (BMI) system that uses visual neurons from blowflies (Calliphora vicina) to control wheeled robots in real time. This system converts H1 neuron optical flow signals into motion commands, mimicking how insects avoid obstacles.
         </p>
@@ -872,44 +1352,79 @@
 
       <!-- Project Overview Section -->
       <section id="overview" class="py-12 border-b border-slate-100">
-        <h2 class="text-2xl font-bold mb-4 text-slate-900">Project Overview</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">
+        <h2 class="text-2xl font-bold mb-4 gradient-title">Project Overview</h2>
+        <p class="text-lg text-slate-700 leading-relaxed mb-8">
           This project applies insect visual systems—specifically H1 neurons—toward robot control. We used real-time neural recordings to steer robots with more than 90% obstacle avoidance accuracy.
         </p>
+        <div class="flex justify-center">
+          <img src="PS.jpg" alt="Project System Overview" class="max-w-full h-auto rounded-lg shadow-lg" />
+        </div>
       </section>
 
       <!-- Technical Highlights Section -->
       <section id="highlights" class="py-12 border-b border-slate-100">
-        <h2 class="text-2xl font-bold mb-8 text-slate-900">Technical Highlights</h2>
-        <div class="flex justify-center gap-4">
-          <div class="highlight-card">
-            <div class="number">1</div>
-            <div class="text">Real-time insect neuron signals for robot control</div>
+        <h2 class="text-2xl font-bold mb-8 gradient-title">Technical Highlights</h2>
+        <div class="flex flex-wrap justify-center gap-8 px-4">
+          <div class="card">
+            <div class="content">
+              <i class="fas fa-brain icon"></i>
+              <span>Real-time insect neuron signals for robot control</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">2</div>
-            <div class="text">Optical flow response simulating natural obstacle avoidance</div>
+          <div class="card">
+            <div class="content">
+              <i class="fas fa-eye icon"></i>
+              <span>Optical flow response simulating natural obstacle avoidance</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">3</div>
-            <div class="text">Dual H1 neuron fusion for expanded perception</div>
+          <div class="card">
+            <div class="content">
+              <i class="fas fa-network-wired icon"></i>
+              <span>Dual H1 neuron fusion for expanded perception</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">4</div>
-            <div class="text">Custom 3D-printed platform for enhanced stability</div>
+          <div class="card">
+            <div class="content">
+              <i class="fas fa-cube icon"></i>
+              <span>Custom 3D-printed platform for enhanced stability</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">5</div>
-            <div class="text">Scalable to complex obstacle avoidance systems</div>
+          <div class="card">
+            <div class="content">
+              <i class="fas fa-expand-arrows-alt icon"></i>
+              <span>Scalable to complex obstacle avoidance systems</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Comparison Section -->
+        <div class="mt-16">
+          <h3 class="text-xl font-bold mb-6 text-center text-slate-900">Before & After Improvement</h3>
+          <div class="flex justify-center">
+            <div class="p-4 border rounded-3xl bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 px-4">
+              <div class="compare-container relative w-[400px] h-[400px] md:w-[500px] md:h-[500px] overflow-hidden cursor-col-resize">
+                <div class="compare-slider absolute top-0 left-1/2 w-0.5 h-full bg-gradient-to-b from-transparent from-[5%] to-[95%] via-indigo-500 to-transparent z-30">
+                  <div class="w-36 h-full [mask-image:radial-gradient(100px_at_left,white,transparent)] absolute top-1/2 -translate-y-1/2 left-0 bg-gradient-to-r from-indigo-400 via-transparent to-transparent z-20 opacity-50"></div>
+                  <div class="w-10 h-1/2 [mask-image:radial-gradient(50px_at_left,white,transparent)] absolute top-1/2 -translate-y-1/2 left-0 bg-gradient-to-r from-cyan-400 via-transparent to-transparent z-10 opacity-100"></div>
+                  <div class="h-5 w-5 rounded-md top-1/2 -translate-y-1/2 bg-white z-30 -right-2.5 absolute flex items-center justify-center shadow-[0px_-1px_0px_0px_#FFFFFF40]">
+                    <i class="fas fa-grip-lines-vertical text-black text-sm"></i>
+                  </div>
+                </div>
+                <div class="compare-images relative w-full h-full">
+                  <img src="OldRobot.jpg" alt="Before improvement" class="absolute inset-0 w-full h-full object-cover object-left-top rounded-2xl z-10">
+                  <img id="compare-new-img" src="NewRobot.png" alt="After improvement" class="absolute inset-0 w-full h-full object-cover object-left-top rounded-2xl z-20" style="clip-path: inset(0 0 0 50%);">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Team Section -->
       <section id="team" class="py-12">
-        <h2 class="text-2xl font-bold mb-8 text-slate-900">Team Members</h2>
+        <h2 class="text-2xl font-bold mb-8 gradient-title">Team Members</h2>
         <div class="mb-12">
-          <h3 class="font-semibold text-lg text-white mb-6">Supervisors</h3>
+          <h3 class="font-semibold text-lg subtitle mb-6">Supervisors</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center max-w-4xl mx-auto">
             <!-- Prof. Holger Krapp Card -->
             <div class="supervisor-card">
@@ -941,7 +1456,7 @@
           </div>
         </div>
         <div>
-          <h3 class="font-semibold text-lg text-white mb-6">Project Members</h3>
+          <h3 class="font-semibold text-lg subtitle mb-6">Project Members</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center max-w-4xl mx-auto">
             <div class="team-member-card">
               <figure>
@@ -1041,6 +1556,49 @@
           </div>
         </div>
       </section>
+
+      <!-- Contact Form Section -->
+      <section id="contact" class="py-12 border-b border-slate-100">
+        <h2 class="text-2xl font-bold mb-8 gradient-title">Contact Us</h2>
+        <div class="flex justify-center">
+          <div class="form-container">
+            <form id="contact-form" class="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="feedback">Feedback</label>
+                <textarea
+                  id="feedback"
+                  name="feedback"
+                  placeholder="Enter your message"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="form-submit-btn">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="py-8 mt-8 text-center text-slate-400 text-sm">
@@ -1083,197 +1641,234 @@
         </svg>
       </div>
     </button>
-    <div id="ai-chatbox-panel"
-      class="fixed bottom-24 right-6 z-50 w-80 max-w-full bg-gradient-to-br from-white to-gray-50 border border-slate-200 rounded-xl shadow-2xl flex flex-col transition-all duration-300 scale-0 opacity-0 pointer-events-none"
-      style="height: 420px;">
-      <div class="flex items-center justify-between px-4 py-2 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-xl">
-        <span class="font-bold text-blue-600">AI ChatBox</span>
-        <button id="ai-chatbox-close" class="text-slate-400 hover:text-blue-600 transition-colors" aria-label="Close">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
+    <div id="ai-chatbox-overlay"></div>
+    <div id="ai-chatbox-panel">
+      <div id="ai-chatbox-header">
+        <span>AI ChatBox</span>
+        <button id="ai-chatbox-close" aria-label="Close">
+          <div class="line one"></div>
+          <div class="line two"></div>
         </button>
       </div>
       <div id="ai-chatbox-messages"></div>
       <form id="ai-chatbox-form">
-        <input id="ai-chatbox-input" type="text" placeholder="Type your message..." autocomplete="off" />
-        <button type="submit" id="ai-chatbox-send">Send</button>
+        <div class="input-place">
+          <input id="ai-chatbox-input" type="text" placeholder="Type your message..." autocomplete="off" />
+          <button type="submit" id="ai-chatbox-send">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </form>
     </div>
   </div>
 
   <script>
-    // 顶部进度条
-    const progress = document.getElementById('scroll-progress');
-    window.addEventListener('scroll', () => {
-      const scroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      progress.style.width = (scroll / height) * 100 + '%';
-    });
-
-    // 返回顶部按钮
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.remove('hidden');
-      } else {
-        backToTop.classList.add('hidden');
-      }
-    });
-    backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // 移动端菜单
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // 导航平滑关闭菜单
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-
-    // 导航项 hover/active 效果
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.add(
-        'px-3', 'py-2', 'rounded', 'transition-all', 'duration-200', 'hover:bg-blue-50', 'hover:text-blue-700', 'active:scale-95', 'cursor-pointer'
-      );
-    });
-
-    // AI ChatBox 交互
-    const chatBtn = document.getElementById('ai-chatbox-btn');
-    const chatPanel = document.getElementById('ai-chatbox-panel');
-    const chatClose = document.getElementById('ai-chatbox-close');
-    const chatForm = document.getElementById('ai-chatbox-form');
-    const chatInput = document.getElementById('ai-chatbox-input');
-    const chatMessages = document.getElementById('ai-chatbox-messages');
-    const chatSend = document.getElementById('ai-chatbox-send');
-
+    // 全局变量声明
+    let chatBtn;
+    let chatPanel;
+    let chatOverlay;
+    let chatClose;
+    let chatForm;
+    let chatInput;
+    let chatSend;
+    let chatMessages;
     let isTyping = false;
+    let isChatOpen = false;
 
-    function openChat() {
-      chatPanel.classList.remove('scale-0', 'opacity-0', 'pointer-events-none');
-      chatPanel.classList.add('scale-100', 'opacity-100');
-      chatInput.focus();
-    }
+    // 项目信息数据库
+    const projectInfo = {
+      name: "Fly Robot Interface (Neural)",
+      description: "A bio-inspired brain-machine interface system that utilizes blowfly visual processing for real-time robot control.",
+      supervisors: [
+        {
+          name: "Prof. Zhang",
+          role: "Lead Supervisor",
+          expertise: "Neural Engineering"
+        },
+        {
+          name: "Prof. Wang",
+          role: "Co-Supervisor",
+          expertise: "Robotics"
+        }
+      ],
+      team: [
+        {
+          name: "Team Member 1",
+          role: "Lead Developer"
+        },
+        {
+          name: "Team Member 2",
+          role: "Hardware Engineer"
+        }
+      ],
+      highlights: [
+        "Real-time neural signal processing",
+        "Advanced optical flow response",
+        "Dual H1 neuron fusion",
+        "Custom 3D-printed platform",
+        "Scalable architecture"
+      ]
+    };
 
-    function closeChat() {
-      chatPanel.classList.add('scale-0', 'opacity-0', 'pointer-events-none');
-      chatPanel.classList.remove('scale-100', 'opacity-100');
-    }
+    // FAQ响应数据库
+    const faqResponses = {
+      "what is this project": "This is the Fly Robot Interface (Neural) project, a bio-inspired brain-machine interface system that uses blowfly visual processing to control robots in real-time.",
+      "who are the supervisors": "The project is supervised by Prof. Zhang (Lead Supervisor, Neural Engineering) and Prof. Wang (Co-Supervisor, Robotics).",
+      "what are the technical highlights": "Key technical highlights include real-time neural signal processing, advanced optical flow response, dual H1 neuron fusion, custom 3D-printed platform, and scalable architecture.",
+      "how to contact": "You can contact us through the contact form on the website or email us at 18201399210@163.com."
+    };
 
-    function addMessage(content, type) {
-      const message = document.createElement('div');
-      message.className = `message ${type}`;
-      message.textContent = content;
-      chatMessages.appendChild(message);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+    // 初始化函数
+    function initializeApp() {
+      // 获取所有需要的元素
+      chatBtn = document.getElementById('ai-chatbox-btn');
+      chatPanel = document.getElementById('ai-chatbox-panel');
+      chatOverlay = document.getElementById('ai-chatbox-overlay');
+      chatClose = document.getElementById('ai-chatbox-close');
+      chatForm = document.getElementById('ai-chatbox-form');
+      chatInput = document.getElementById('ai-chatbox-input');
+      chatSend = document.getElementById('ai-chatbox-send');
+      chatMessages = document.getElementById('ai-chatbox-messages');
 
-    function showTypingIndicator() {
-      const typing = document.createElement('div');
-      typing.className = 'message typing';
-      typing.innerHTML = `
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      `;
-      chatMessages.appendChild(typing);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      return typing;
-    }
-
-    function removeTypingIndicator(typing) {
-      typing.remove();
-    }
-
-    async function handleUserMessage(msg) {
-      addMessage(msg, 'user');
-      chatInput.value = '';
-      chatSend.disabled = true;
-
-      const typing = showTypingIndicator();
-      isTyping = true;
-
-      // 模拟 AI 响应
-      await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
-      
-      if (isTyping) {
-        removeTypingIndicator(typing);
-        addMessage('I am an AI assistant. How can I help you today?', 'ai');
+      // 绑定事件监听器
+      if (chatBtn) {
+        chatBtn.addEventListener('click', toggleChat);
       }
 
-      chatSend.disabled = false;
-      chatInput.focus();
+      if (chatClose) {
+        chatClose.addEventListener('click', closeChat);
+      }
+
+      if (chatOverlay) {
+        chatOverlay.addEventListener('click', closeChat);
+      }
+
+      if (chatForm) {
+        chatForm.addEventListener('submit', handleMessage);
+      }
+
+      // 添加欢迎消息
+      setTimeout(() => {
+        addMessage("Hello! I'm your FRI Neurob AI assistant. How can I help you today?", 'ai');
+      }, 1000);
     }
 
-    chatBtn.addEventListener('click', function() {
-      if (chatPanel.classList.contains('scale-100')) {
+    // 切换聊天面板
+    function toggleChat(e) {
+      e.preventDefault();
+      if (isChatOpen) {
         closeChat();
       } else {
         openChat();
       }
-    });
-
-    chatClose.addEventListener('click', closeChat);
-
-    chatForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const msg = chatInput.value.trim();
-      if (!msg || isTyping) return;
-      handleUserMessage(msg);
-    });
-
-    chatInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        const msg = chatInput.value.trim();
-        if (!msg || isTyping) return;
-        handleUserMessage(msg);
-      }
-    });
-
-    // 初始化欢迎消息
-    function initChat() {
-      addMessage('Hello! I am your AI assistant. How can I help you today?', 'ai');
     }
 
-    // 当聊天框首次打开时显示欢迎消息
-    let isFirstOpen = true;
-    chatBtn.addEventListener('click', function() {
-      if (isFirstOpen && !chatPanel.classList.contains('scale-100')) {
-        initChat();
-        isFirstOpen = false;
+    // 打开聊天面板
+    function openChat() {
+      if (chatPanel && chatOverlay) {
+        chatPanel.classList.add('active');
+        chatOverlay.classList.add('active');
+        isChatOpen = true;
+        chatInput.focus();
       }
-    });
+    }
 
-    // Background Beams Animation
-    const paths = document.querySelectorAll('.beams-path');
-    paths.forEach((path, index) => {
-      const duration = 20 + Math.random() * 10;
-      const delay = Math.random() * 10;
+    // 关闭聊天面板
+    function closeChat() {
+      if (chatPanel && chatOverlay) {
+        chatPanel.classList.remove('active');
+        chatOverlay.classList.remove('active');
+        isChatOpen = false;
+      }
+    }
+
+    // 处理消息
+    function handleMessage(e) {
+      e.preventDefault();
+      const message = chatInput.value.trim();
       
-      // 设置路径的虚线属性
-      const pathLength = path.getTotalLength();
-      path.style.strokeDasharray = pathLength;
-      path.style.strokeDashoffset = pathLength;
-      
-      // 添加流动动画
-      path.style.animation = `flowAnimation ${duration}s linear ${delay}s infinite`;
-      
-      // 为每个路径添加流动的光点
-      const dotCount = 3; // 每条路径上的光点数量
-      for (let i = 0; i < dotCount; i++) {
-        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        dot.setAttribute("r", "2");
-        dot.setAttribute("class", "light-dot");
-        dot.style.offsetPath = `path("${path.getAttribute("d")}")`;
-        dot.style.animationDelay = `${delay + i * (duration / dotCount)}s`;
-        dot.style.animationDuration = `${duration}s`;
-        path.parentNode.appendChild(dot);
+      if (message && !isTyping) {
+        addMessage(message, 'user');
+        chatInput.value = '';
+        showTypingIndicator();
+        getAIResponse(message);
+      }
+    }
+
+    // 添加消息到聊天面板
+    function addMessage(text, type) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.textContent = text;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // 显示正在输入指示器
+    function showTypingIndicator() {
+      isTyping = true;
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'message typing';
+      typingDiv.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      `;
+      chatMessages.appendChild(typingDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // 移除正在输入指示器
+    function removeTypingIndicator() {
+      const typingIndicator = chatMessages.querySelector('.typing');
+      if (typingIndicator) {
+        typingIndicator.remove();
+      }
+      isTyping = false;
+    }
+
+    // 获取AI响应
+    function getAIResponse(message) {
+      // 模拟AI思考时间
+      setTimeout(() => {
+        removeTypingIndicator();
+        addMessage("I apologize, but I haven't been connected to the API yet. This feature is currently under development.", 'ai');
+      }, 1000);
+    }
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', initializeApp);
+
+    // Image Comparison Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const compareContainer = document.querySelector('.compare-container');
+      const slider = document.querySelector('.compare-slider');
+      const newImage = document.getElementById('compare-new-img');
+      let isDragging = false;
+
+      if (compareContainer && slider && newImage) {
+        compareContainer.addEventListener('mousedown', function(e) {
+          isDragging = true;
+        });
+        document.addEventListener('mouseup', function(e) {
+          isDragging = false;
+        });
+        compareContainer.addEventListener('mousemove', function(e) {
+          if (!isDragging) return;
+          const rect = compareContainer.getBoundingClientRect();
+          let x = e.clientX - rect.left;
+          x = Math.max(0, Math.min(x, rect.width));
+          const percent = (x / rect.width) * 100;
+          // Update slider position
+          compareContainer.style.setProperty('--slider-position', `${percent}%`);
+          // Update image clip path
+          newImage.style.clipPath = `inset(0 0 0 ${percent}%)`;
+        });
+        // 初始化为一半
+        newImage.style.clipPath = 'inset(0 0 0 50%)';
       }
     });
   </script>
