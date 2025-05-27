@@ -251,6 +251,27 @@
       .beams-container {
         display: none;
       }
+
+      /* Add mobile background */
+      .mobile-background {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        background: #000000;
+      }
+    }
+
+    /* Hide mobile background on desktop */
+    @media (min-width: 769px) {
+      .mobile-background {
+        display: none;
+      }
     }
 
     .btn-shine {
@@ -1274,6 +1295,26 @@
         <animate attributeName="stroke-opacity" values="0.05;0.1;0.05" dur="5s" repeatCount="indefinite" />
       </path>
     </svg>
+  </div>
+
+  <!-- Mobile Background -->
+  <div class="mobile-background">
+    <div class="absolute inset-0">
+      <!-- Gradient overlay -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black/90"></div>
+      
+      <!-- Static beams -->
+      <div class="absolute inset-0">
+        <div class="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent"></div>
+        <div class="absolute top-0 left-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-purple-500/20 to-transparent"></div>
+        <div class="absolute top-0 left-3/4 w-[1px] h-full bg-gradient-to-b from-transparent via-pink-500/20 to-transparent"></div>
+      </div>
+
+      <!-- Glowing orbs -->
+      <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500/10 blur-3xl"></div>
+      <div class="absolute top-1/3 right-1/4 w-40 h-40 rounded-full bg-purple-500/10 blur-3xl"></div>
+      <div class="absolute bottom-1/4 left-1/3 w-36 h-36 rounded-full bg-pink-500/10 blur-3xl"></div>
+    </div>
   </div>
 
   <!-- Content Wrapper -->
