@@ -1,5 +1,7 @@
 // File: pages/Home.tsx
 import React from 'react';
+import ChatInterface from '../components/ChatInterface';
+import HighlightCard from '../components/HighlightCard';
 
 const IndexPage: React.FC = () => (
   <main style={{ fontFamily: 'serif', background: '#fff', color: '#222', minHeight: '100vh' }}>
@@ -21,7 +23,7 @@ const IndexPage: React.FC = () => (
     </header>
 
     {/* Hero Section */}
-    <section id="home" style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center', padding: '2rem 1rem 2rem 1rem' }}>
+    <section id="home" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
       <h1 style={{ fontSize: 36, fontWeight: 700, marginBottom: 16 }}>Fly Robot Interface (Neural)</h1>
       <p style={{ color: '#2563eb', fontSize: 20, marginBottom: 24 }}>NeuRob · Department of Bioengineering, Imperial College London</p>
       <a href="https://github.com/zeyuanx0x/FRI_Neurob/blob/master/Neurob_Final_Report_02225375.pdf" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', background: '#2563eb', padding: '0.75rem 1.5rem', borderRadius: 6, textDecoration: 'none', fontWeight: 500, fontSize: 16 }}>View Our Final Report</a>
@@ -44,45 +46,38 @@ const IndexPage: React.FC = () => (
     </section>
 
     {/* Technical Highlights Section */}
-    <section id="highlights" style={{ maxWidth: 800, margin: '0 auto', padding: '2rem 1rem' }}>
-      <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>Technical Highlights</h2>
-      <ul style={{ fontSize: 17, lineHeight: 2, paddingLeft: 24 }}>
-        <li>Real-time insect neuron signals for robot control</li>
-        <li>Optical flow response simulating natural obstacle avoidance</li>
-        <li>Dual H1 neuron fusion for expanded perception</li>
-        <li>Custom 3D-printed platform for enhanced stability</li>
-        <li>Scalable to complex obstacle avoidance systems</li>
-      </ul>
+    <section id="highlights" style={{ maxWidth: 1200, margin: '0 auto', padding: '2rem 1rem' }}>
+      <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 24, textAlign: 'center' }}>Technical Highlights</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '2rem', justifyContent: 'center' }}>
+        <HighlightCard
+          title="Real-time Control"
+          description="Using live H1 neuron recordings for immediate robot response"
+        />
+        <HighlightCard
+          title="Dual H1 Integration"
+          description="Mimicking binocular vision for enhanced perception"
+        />
+        <HighlightCard
+          title="Custom Platform"
+          description="3D-printed robot platform for optimal performance"
+        />
+        <HighlightCard
+          title="Low-power System"
+          description="Efficient optic-flow based collision avoidance"
+        />
+      </div>
     </section>
 
     {/* Team Section */}
     <section id="team" style={{ maxWidth: 800, margin: '0 auto', padding: '2rem 1rem' }}>
-      <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>Team Members</h2>
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontWeight: 500, fontSize: 18 }}>Supervisors</div>
-        <ul style={{ fontSize: 17, lineHeight: 2, paddingLeft: 24, margin: 0 }}>
-          <li>Prof. Holger Krapp</li>
-          <li>Dr. Jiaqi Huang</li>
-        </ul>
-      </div>
-      <div>
-        <div style={{ fontWeight: 500, fontSize: 18 }}>Project Members</div>
-        <ul style={{ fontSize: 17, lineHeight: 2, paddingLeft: 24, margin: 0 }}>
-          <li>Zeyuan Xin</li>
-          <li>Yuichiro Minamikawa</li>
-          <li>Yi Zhang</li>
-          <li>Changyu Hu</li>
-          <li>Shuchang Zhang</li>
-          <li>Wenjun Jiao</li>
-          <li>Badriyah Islam</li>
-        </ul>
-      </div>
+      <h2 style={{ fontSize: 24, fontWeight: 600, marginBottom: 12 }}>Our Team</h2>
+      <p style={{ fontSize: 17, lineHeight: 1.7 }}>
+        Our interdisciplinary team combines expertise in neuroscience, robotics, and computer science to push the boundaries of bio-inspired control systems.
+      </p>
     </section>
 
-    {/* Footer */}
-    <footer style={{ borderTop: '1px solid #eee', marginTop: 40, padding: '1.5rem 0', background: '#fafbfc', textAlign: 'center', fontSize: 15, color: '#888' }}>
-      © 2025 NeuRob Project, Imperial College London. All rights reserved.
-    </footer>
+    {/* Chat Interface */}
+    <ChatInterface />
   </main>
 );
 
