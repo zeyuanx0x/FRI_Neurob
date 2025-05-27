@@ -55,7 +55,7 @@ const IndexPage: React.FC = () => (
     {/* Technical Highlights Section */}
     <section id="highlights" className="max-w-7xl mx-auto px-4 py-12">
       <h2 className="text-2xl font-bold text-center mb-12">Technical Highlights</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <HighlightCard
           title="Real-time Control"
           description="Using live H1 neuron recordings for immediate robot response"
