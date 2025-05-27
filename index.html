@@ -733,44 +733,89 @@
     }
 
     /* Technical Highlights Cards */
-    .highlight-card {
-      width: 160px;
-      height: 200px;
-      border-radius: 30px;
-      background: #212121;
-      box-shadow: 15px 15px 30px rgb(25, 25, 25),
-                 -15px -15px 30px rgb(60, 60, 60);
+    .card {
+      width: 190px;
+      height: 254px;
+      background: #171717;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 1.2rem;
-      text-align: center;
-      transition: transform 0.3s ease;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0px 0px 3px 1px #00000088;
+      cursor: pointer;
+      border-radius: 5px;
     }
 
-    .highlight-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .highlight-card .number {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, #e81cff, #40c9ff);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .card .content {
+      border-radius: 5px;
+      background: #171717;
+      width: 186px;
+      height: 250px;
+      z-index: 1;
+      padding: 20px;
       color: white;
-      font-weight: bold;
-      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       font-size: 0.9rem;
+      line-height: 1.4;
     }
 
-    .highlight-card .text {
-      color: #e5e7eb;
-      font-size: 0.8rem;
-      line-height: 1.3;
+    .content::before {
+      opacity: 0;
+      transition: opacity 300ms;
+      content: " ";
+      display: block;
+      background: white;
+      width: 5px;
+      height: 50px;
+      position: absolute;
+      filter: blur(50px);
+      overflow: hidden;
+    }
+
+    .card:hover .content::before {
+      opacity: 1;
+    }
+
+    .card::before {
+      opacity: 0;
+      content: " ";
+      position: absolute;
+      display: block;
+      width: 80px;
+      height: 360px;
+      background: linear-gradient(#ff2288, #387ef0);
+      transition: opacity 300ms;
+      animation: rotation_9018 8000ms infinite linear;
+      animation-play-state: paused;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      animation-play-state: running;
+    }
+
+    .card::after {
+      position: absolute;
+      content: " ";
+      display: block;
+      width: 250px;
+      height: 360px;
+      background: #17171733;
+      backdrop-filter: blur(50px);
+    }
+
+    @keyframes rotation_9018 {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -823,7 +868,7 @@
         <div class="flex items-center justify-between px-4">
           <a href="#home" class="flex items-center space-x-2 group">
             <img src="favicon.svg" alt="FRI Logo" class="h-9 w-9 icon-float" width="36" height="36" />
-            <span class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors duration-200">Fly Robot Interface (Neural)</span>
+            <span class="font-bold text-lg text-slate-900 group-hover:text-blue-600 transition-colors duration-200">FRIn </span>
           </a>
           <div class="flex items-center space-x-4">
             <div class="navbar-menu-item">
@@ -881,26 +926,31 @@
       <!-- Technical Highlights Section -->
       <section id="highlights" class="py-12 border-b border-slate-100">
         <h2 class="text-2xl font-bold mb-8 text-slate-900">Technical Highlights</h2>
-        <div class="flex justify-center gap-4">
-          <div class="highlight-card">
-            <div class="number">1</div>
-            <div class="text">Real-time insect neuron signals for robot control</div>
+        <div class="flex flex-wrap justify-center gap-8 px-4">
+          <div class="card">
+            <div class="content">
+              <span>Real-time insect neuron signals for robot control</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">2</div>
-            <div class="text">Optical flow response simulating natural obstacle avoidance</div>
+          <div class="card">
+            <div class="content">
+              <span>Optical flow response simulating natural obstacle avoidance</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">3</div>
-            <div class="text">Dual H1 neuron fusion for expanded perception</div>
+          <div class="card">
+            <div class="content">
+              <span>Dual H1 neuron fusion for expanded perception</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">4</div>
-            <div class="text">Custom 3D-printed platform for enhanced stability</div>
+          <div class="card">
+            <div class="content">
+              <span>Custom 3D-printed platform for enhanced stability</span>
+            </div>
           </div>
-          <div class="highlight-card">
-            <div class="number">5</div>
-            <div class="text">Scalable to complex obstacle avoidance systems</div>
+          <div class="card">
+            <div class="content">
+              <span>Scalable to complex obstacle avoidance systems</span>
+            </div>
           </div>
         </div>
       </section>
